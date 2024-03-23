@@ -37,7 +37,7 @@
                                     </span>
                                     @enderror
                                 </div>
-                                <button class="btn btn-outline-light btn-lg px-5" type="submit">{{__('main.sginin')}}</button>
+                                <button class="btn btn-outline-light rounded-pill btn-md px-5" type="submit">{{__('main.sginin')}}</button>
                                 
                                 <div class="my-5 text-light" style="width: 100%; height: 20px; border-bottom: 1px solid white; text-align: center">
                                     <span style=" background-color: #212529; padding: 0 25px;" class="fw-bolder fs-4">
@@ -77,84 +77,3 @@
     </div>
 </section>
 @endsection
-{{-- <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card rounded-3 shadow-lg p-3">
-                <div class="card-body ">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-                        <h4 class=" ">{{ __('main.sginin')}}</h4>
-                </div>
-                <div class="row mb-3">
-
-                    <label for="national_id" class="col-form-label ">{{ __('main.national_id')}}</label>
-
-                    <div class="">
-                        <input id="national_id" type="sttring"
-                            class="form-control @error('national_id') is-invalid @enderror" name="national_id"
-                            value="{{ old('national_id') }}" required autocomplete="national_id" autofocus>
-
-                        @error('national_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label for="password" class=" col-form-label ">{{ __('main.password')}}</label>
-
-                    <div class="">
-                        <input id="password" type="password"
-                            class="form-control @error('password') is-invalid @enderror" name="password" required
-                            autocomplete="current-password">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{
-                                old('remember') ? 'checked' : '' }}>
-
-                            <label class="form-check-label" for="remember">
-                                {{ __('Remember Me') }}
-                            </label>
-                        </div>
-                        @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                </div>
-
-
-                <div class="row mb-0">
-                    <div class="col-md-8 offset-md-4">
-                        <button type="submit" class="btn btn-primary">
-                            {{ __('Login') }}
-                        </button>
-
-                        @if (Route::has('password.request'))
-                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                            {{ __('Forgot Your Password?') }}
-                        </a>
-                        @endif
-                    </div>
-                </div>
-                </form>
-                <div style="display: flex; align-items: center;" class="my-3">
-                    <hr style="flex-grow: 1; border: 1px solid black;">
-                    <span style="padding: 0 10px;">{{ __('main.or')}}</span>
-                    <hr style="flex-grow: 1; border: 1px solid black;">
-                </div>
-                <div class="row mb-3 col-12 p-3 d-block text-center">
-                    <a href="{{ route('auth.social',['social'=>App\Enums\SocialNetworksEnum::FACEBOOK]) }}"> <img
-                            src="{{asset('images/facebook-icon.png')}}" alt="" style="width: 40px;" srcset=""> </a>
-
-                    <a href="{{ route('auth.social',['social'=>App\Enums\SocialNetworksEnum::GOOGLE]) }}"> <img
-                            src="{{asset('images/google-icon.webp')}}" alt="" style="width: 40px;" srcset=""> </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div> --}}
