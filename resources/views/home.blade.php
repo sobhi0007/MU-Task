@@ -23,7 +23,7 @@
   
     <div class="row col-12">
       <!-- sidebar starts -->
-      <div class="sidebar  col-2  d-md-block d-none">
+      <div class="sidebar  col-2  d-md-block d-none sticky-sidebar">
         <i class="fab fa-twitter"></i>
         <div class="sidebarOption active">
           <span class="material-icons"> home </span>
@@ -83,15 +83,7 @@
 
         <!-- tweetbox starts -->
         <div class="tweetBox">
-          <form>
-            <div class="tweetbox__input">
-              <img
-                src="https://png.pngitem.com/pimgs/s/273-2738704_user-login-png-transparent-logo-twitter-blanco-png.png"
-                alt="" />
-              <input type="text" placeholder="What's happening?" />
-            </div>
-            <button class="tweetBox__tweetButton">Tweet</button>
-          </form>
+            @livewire('create-new-post')
         </div>
         <!-- tweetbox ends -->
 
@@ -100,7 +92,7 @@
       <!-- feed ends -->
 
       <!-- widgets starts -->
-      <div class="widgets  col-3 d-lg-block d-none">
+      <div class="widgets  col-3 d-lg-block sticky-sidebar d-none">
         <div class="widgets__input">
           <span class="material-icons widgets__searchIcon"> search </span>
           <input type="text" placeholder="Search Twitter" />

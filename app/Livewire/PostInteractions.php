@@ -7,20 +7,24 @@ use Livewire\Component;
 
 class PostInteractions extends Component
 {
-
-  public $posts;
+    public $posts;
 
     public function mount()
     {
-        // Fetch all posts with their comments using Eloquent relationships
-        $this->posts = Post::with(['comments','user'])->get();
+        $this->posts = Post::with(['comments','user'])->latest()->get();
+    }
+
+    public function postDelete($postId)
+    {
+        $post = Post::where('user_id',auth()->user()->id)->findOrfail($postId);
+        if($post ) {
+            $post->delete();
+        }
     }
 
     public function render()
     {  
-        $this->posts = Post::with('comments')->get();
-        return view('livewire.post-interactions', [
-            'posts' => $this->posts,
-        ]);
+        $this->posts = Post::with(['comments','user'])->latest()->get();
+        return view('livewire.post-interactions');
     }
 }
