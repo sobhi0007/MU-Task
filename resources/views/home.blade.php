@@ -22,6 +22,32 @@
 <body @if(App::getLocale()=='ar' ) style="dir:rtl" @endif class=" m-0 p-0 ">
   
     <div class="row col-12">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light   d-md-none ">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"><i class="fab fa-twitter"></i></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarText">
+            <li class="nav-item dropdown list-unstyled">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               {{auth()->user()->name}}
+              </a>
+              <ul class="dropdown-menu "list-unstyled" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="text-danger text-decoration-none ms-2 " href="{{ route('logout') }}" onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                   <i class="fas fa-sign-out"></i> {{ __('Logout') }}
+                  </a>
+    
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                  @csrf
+                </form>
+              </ul>
+            </li>
+           
+          </div>
+        </div>
+      </nav>
       <!-- sidebar starts -->
       <div class="sidebar  col-2  d-md-block d-none sticky-sidebar">
         <i class="fab fa-twitter"></i>
