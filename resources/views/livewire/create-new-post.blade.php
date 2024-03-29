@@ -11,16 +11,17 @@
           
         </div>
        
-        <div class="mb-3">
+        <div class="m-3">
           <label for="formFile" class="form-label">Upload an image</label>
           <input class="form-control" wire:model='photo' type="file" >
+          @error('photo') <span class="error text-danger fw-bold ">{{ $message }}</span> @enderror
         </div>
         <button 
          class="tweetBox__tweetButton">Tweet</button>
       </form>
       
         @error('tweet') <span class="error text-danger fw-bold ms-4">{{ $message }}</span> @enderror
-        @error('photo') <span class="error text-danger fw-bold ms-4">{{ $message }}</span> @enderror
+        
 
       
 </div>
