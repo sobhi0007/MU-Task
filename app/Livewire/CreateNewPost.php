@@ -13,7 +13,7 @@ class CreateNewPost extends Component
     public $tweet;
     public function postTweet()
     {
- 
+       
         $this->validate([
             'tweet' => 'required|string|max:255',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:4096', 
@@ -29,9 +29,10 @@ class CreateNewPost extends Component
             ->usingName($this->photo->getClientOriginalName())
             ->toMediaCollection('images');
         }
-       
+     
         $this->tweet = '';
         $this->photo = '';
+        $this->dispatch('fileInputReset');
     }
 
     public function render()
