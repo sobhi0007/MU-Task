@@ -1,16 +1,17 @@
 <?php
 
 namespace App\Livewire;
-
-use App\Models\Post;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\RepositoryPattern\PostRepoInterface;
 
 class CreateNewPost extends Component
 {
     use WithFileUploads;
     public $photo;
     public $tweet;
+    protected $postRepo;
+
     public function postTweet()
     {
        
@@ -18,14 +19,12 @@ class CreateNewPost extends Component
             'tweet' => 'required|string|max:255',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:4096', 
         ]);
-         
-       $post = Post::create([
-            'content' => $this->tweet,
-            'user_id' => auth()->user()->id,
-        ]);
 
+        $this->postRepo = app(PostRepoInterface::class);
+        $post = $this->postRepo->store(['tweet'=>$this->tweet]);
+       
         if ($this->photo) {
-            $post  ->addMedia($this->photo->getRealPath())
+            $post->addMedia($this->photo->getRealPath())
             ->usingName($this->photo->getClientOriginalName())
             ->toMediaCollection('images');
         }

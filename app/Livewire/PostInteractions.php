@@ -5,6 +5,8 @@ namespace App\Livewire;
 use App\Models\Post;
 use App\Models\Comment;
 use Livewire\Component;
+use App\RepositoryPattern\PostRepoInterface;
+use App\RepositoryPattern\CommentRepoInterface;
 use Illuminate\Contracts\Encryption\DecryptException;
 
 class PostInteractions extends Component
@@ -14,19 +16,21 @@ class PostInteractions extends Component
     public $comment;
     public $content;
     public $post;
-
+    protected $postRepo;
+    protected $commentRepo;
     public function mount()
     {
-        $this->posts = Post::with(['comments', 'user'])->latest()->get();
+        $this->postRepo = app(PostRepoInterface::class);
+        $this->posts =  $this->postRepo->getAll() ;
     }
 
     public function postDelete($postId)
     {
-
         $id = $this->decryptID($postId);
         $post = Post::where('user_id', auth()->user()->id)->findOrfail($id);
         if ($post) {
-            $post->delete();
+            $this->postRepo = app(PostRepoInterface::class);
+            $this->postRepo->destroy($post->id);
         }
     }
 
@@ -36,7 +40,8 @@ class PostInteractions extends Component
         $id = $this->decryptID($commentId);
         $comment = Comment::where('user_id', auth()->user()->id)->findOrfail($id);
         if ($comment) {
-            $comment->delete();
+            $this->commentRepo = app(CommentRepoInterface::class);
+            $this->commentRepo->destroy($comment);
         }
     }
 
@@ -47,13 +52,12 @@ class PostInteractions extends Component
             'comment' => 'required|max:255',
         ]);
 
-        Comment::create([
-            'comment' => $this->comment,
-            'user_id' => auth()->user()->id,
-            'post_id' => $post->id
-
-        ]);
-
+        $this->commentRepo = app(CommentRepoInterface::class);
+        $this->commentRepo->store([
+                'comment' => $this->comment,
+                'user_id' => auth()->user()->id,
+                'post_id' => $post->id
+                 ]) ;
         $this->comment = '';
     }
 
@@ -65,6 +69,16 @@ class PostInteractions extends Component
         $this->dispatch('openEditPostModal');
     }
 
+
+    public function updatePost($postId)
+    {
+    
+        $id = $this->decryptID($postId);
+        $post = Post::findorFail($id);
+        $this->postRepo = app(PostRepoInterface::class);
+        $this->postRepo->update($post,['content'=>$this->content]);
+        $this->dispatch('closeEditPostModal');
+    }
 
     public function closeEditPostModal()
     {
@@ -84,7 +98,8 @@ class PostInteractions extends Component
 
     public function render()
     {
-        $this->posts = Post::with(['comments', 'user'])->latest()->get();
+        $this->postRepo = app(PostRepoInterface::class);
+        $this->posts =  $this->postRepo->getAll() ;
         return view('livewire.post-interactions');
     }
 }

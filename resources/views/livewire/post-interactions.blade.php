@@ -146,13 +146,13 @@
                 </div>
                 <div class="modal-body">
                     <!-- Edit form -->
-                    <form wire:submit.prevent="save">
+                    <form wire:submit.prevent="updatePost('{{encrypt($post->id)}}')">
                         <!-- Form fields to edit post -->
 
                         <div class="form-group">
                             <label for="postContent">Content</label>
                             <textarea class="form-control" id="postContent" rows="3"
-                                wire:model.defer="post.content">{{$post->content}}</textarea>
+                                wire:model.defer="content">{{$post->content}}</textarea>
                         </div>
 
                         <div>
