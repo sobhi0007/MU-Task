@@ -15,6 +15,7 @@ class CreateNewPost extends Component
     public function postTweet()
     {
        
+        // dd($this->photo);
         $this->validate([
             'tweet' => 'required|string|max:255',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:4096', 

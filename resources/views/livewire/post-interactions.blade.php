@@ -42,7 +42,7 @@
                     <h3>
                         {{$post->user->name}}
                         <span class="post__headerSpecial"><span class="material-icons post__badge"> verified
-                            </span>@somanathg</span>
+                            </span>{{'@'.$post->user->name}}</span>
                     </h3>
                 </div>
                 <div class="post__headerDescription">
@@ -71,7 +71,7 @@
                                         {{$comment->user->name}}
                                         <span class="post__headerSpecial"><span class="material-icons post__badge">
                                                 verified
-                                            </span>@somanathg</span>
+                                            </span>{{'@'.$post->user->name}}</span>
                                     </h3>
                                 </div>
                                 <div class="post__headerDescription">
