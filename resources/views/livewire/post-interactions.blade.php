@@ -57,9 +57,41 @@
 
             <div wire:ignore.self class="collapse" id="collapseExample{{$loop->iteration}}">
                 <div class="card card-body">
-
+                   
+                    @if ($post->comments->count() > 0)
+                        
+                    
+                    <li class="nav-item dropdown list-unstyled position-absolute" style="right: 15px;"  wire:ignore >
+                        <a class="text-decoration-none fw-bold" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            ...
+                        </a>
+                        <ul  class="dropdown-menu py-0 " aria-labelledby="navbarDropdownMenuLink">
+                            <li wire:click="showMultiSelectForComments('{{ encrypt($post->id) }}')" class="bg-light p-2 pointer text-danger">
+                                <span class=" fw-bold text-sm fs-5">
+                                    multi selecet comments 
+                                </span>
+                            </li>
+                        </ul>
+                    </li>
+                    @endif
+                    <div class="mt-3"></div>
+                    @if($selectedCheckboxes != null && $post->id == $postIdForDeleteComment )
+                    <div class="text-center">
+                        <button class="w-50 btn btn-sm btn-danger rounded-pill" wire:click='deleteSelectedCheckboxes'>Delete seleceted comments</button>
+                    </div>    
+                    
+                    @endif
+                   
                     @forelse ($post->comments as $comment)
+                    
                     <div class="bg-seocndary row m-2 comment-bg" wire:key="comment-{{ $comment->id }}">
+                      
+                        @if($postIdForDeleteComment == $post->id)
+                        <div >
+                            <input type="checkbox"  wire:model="selectedCheckboxes" wire:key='{{$comment->id}}-input' value="{{$comment->id}}" id="{{$comment->id}}-input" wire:ignore.self>
+                        </div>
+                        @endif
                         <div class="post__avatar col-12 col-sm-2">
                             <img src="https://png.pngitem.com/pimgs/s/273-2738704_user-login-png-transparent-logo-twitter-blanco-png.png"
                                 alt="">
@@ -85,9 +117,8 @@
 
                             <div class="d-flex justify-content-end mb-1">
                                 @if(auth()->user()->id == $comment->user_id)
-                                <span class="fs-5 text-danger pointer fw-bolder"
-                                    wire:click="commentDelete('{{ encrypt($comment->id) }}')">Delete
-                                    your comment </span>
+                                <a class="fs-5 btn btn-danger btn-sm rounded-pill pointer fw-bolder text-decoration-none"
+                                    wire:click="commentDelete('{{ encrypt($comment->id) }}')">Delete</a>
                                 @endif
                             </div>
                         </div>

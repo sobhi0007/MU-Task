@@ -18,6 +18,10 @@ class PostInteractions extends Component
     public $post;
     protected $postRepo;
     protected $commentRepo;
+    public $commentsID;
+    public $postIdForDeleteComment;
+    public $selectedCheckboxes = [];
+
     public function mount()
     {
         $this->postRepo = app(PostRepoInterface::class);
@@ -95,6 +99,25 @@ class PostInteractions extends Component
         }
         return $id;
     }
+
+
+    public function showMultiSelectForComments($id){
+        $post = Post::where('user_id',auth()->user()->id)->find($this->decryptID($id));
+        if($post){
+          return $this->postIdForDeleteComment =$post->id;
+        }
+    }
+
+    public function deleteSelectedCheckboxes()
+    {
+     
+        // dd($this->selectedCheckboxes);
+            Comment::whereIn('id',$this->selectedCheckboxes)->delete();
+            $this->selectedCheckboxes = null;
+            $this->postIdForDeleteComment=null;
+    
+    }
+
 
     public function render()
     {
