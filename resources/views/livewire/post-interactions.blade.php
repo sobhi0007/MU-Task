@@ -78,7 +78,7 @@
                     <div class="mt-3"></div>
                     @if($selectedCheckboxes != null && $post->id == $postIdForDeleteComment )
                     <div class="text-center">
-                        <button class="w-50 btn btn-sm btn-danger rounded-pill" wire:click='deleteSelectedCheckboxes'>Delete seleceted comments</button>
+                        <button class="col-8 btn btn-sm btn-danger rounded-pill" wire:click='deleteSelectedCheckboxes'>Delete seleceted comments</button>
                     </div>    
                     
                     @endif
