@@ -110,10 +110,9 @@ class PostInteractions extends Component
 
     public function deleteSelectedCheckboxes()
     {
-     
-        // dd($this->selectedCheckboxes);
+    
             Comment::whereIn('id',$this->selectedCheckboxes)->delete();
-            $this->selectedCheckboxes = null;
+            $this->selectedCheckboxes = [];
             $this->postIdForDeleteComment=null;
     
     }
